@@ -3,6 +3,11 @@ import { css, add, h1, style, link } from "https://js.sabae.cc/stdom.js";
 import { Romaji } from "./Romaji.js";
 import { moji } from "https://taisukef.github.io/moji/index.mjs";
 
+const kana2roma = (s) => {
+  const zs = moji(s).convert("HKtoZK").convert("KKtoHG").toString();
+  return Romaji.encode(zs);
+};
+
 onload = async () => {
   css();
   style({ body: { "text-align": "center" }, input: { width: "80%", "font-size": "150%", margin: "1em", padding: ".3em" }});
@@ -15,8 +20,7 @@ onload = async () => {
   inpkana.onkeyup = inpkana.onchange = () => {
     const s = inpkana.value;
     try {
-      const zs = moji(s).convert("HKtoZK").convert("KKtoHG").toString();
-      inproma.value = Romaji.encode(zs);
+      inproma.value = kana2roma(s);
     } catch (e) {
       inproma.value = e.toString();
     }
