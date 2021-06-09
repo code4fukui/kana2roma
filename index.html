@@ -1,6 +1,7 @@
 <meta charset="utf-8"><script type="module">
 import { css, add, h1, style, link } from "https://js.sabae.cc/stdom.js";
 import { Romaji } from "./Romaji.js";
+import { moji } from "https://taisukef.github.io/moji/index.mjs";
 
 onload = async () => {
   css();
@@ -14,7 +15,8 @@ onload = async () => {
   inpkana.onkeyup = inpkana.onchange = () => {
     const s = inpkana.value;
     try {
-      inproma.value = Romaji.encode(s);
+      const zs = moji(s).convert("HKtoZK").convert("KKtoHG").toString();
+      inproma.value = Romaji.encode(zs);
     } catch (e) {
       inproma.value = e.toString();
     }
