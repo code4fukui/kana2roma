@@ -4,6 +4,10 @@
 
 - 漢字による判定が未実装
 
+## sample
+
+https://code4fukui.github.io/kana2roma/
+
 ## usage
 
 ブラウザのESモジュール(script type内)または、Denoで動く
