@@ -1,0 +1,26 @@
+<meta charset="utf-8"><script type="module">
+import { css, add, h1, style, link } from "https://js.sabae.cc/stdom.js";
+import { Romaji } from "./Romaji.js";
+
+onload = async () => {
+  css();
+  style({ body: { "text-align": "center" }, input: { width: "80%", "font-size": "150%", margin: "1em", padding: ".3em" }});
+
+  h1("固有名詞のかなローマ字変換");
+  const inpkana = add("input");
+  inpkana.placeholder = "かな表記";
+  const inproma = add("input");
+  inproma.placeholder = "ローマ字表記";
+  inpkana.onkeyup = inpkana.onchange = () => {
+    const s = inpkana.value;
+    try {
+      inproma.value = Romaji.encode(s);
+    } catch (e) {
+      inproma.value = e.toString();
+    }
+  }
+  add("br");
+  link("kana2roma - Romaji.js by Code for Fukui", "https://github.com/code4fukui/kana2roma")
+  link("一日一創", "https://fukuno.jig.jp/3241")
+};
+</script>
