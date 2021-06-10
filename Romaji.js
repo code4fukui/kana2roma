@@ -17,7 +17,7 @@ const kana2roma = (s) => {
       tflg = true;
       continue; // 長音記号は省略
     } else if ("0123456789".indexOf(c) >= 0) {
-      roma = "-" + c;
+      roma = " " + c + "-";
     } else {
       roma = KANA_ROMA[c];
     }
