@@ -22,3 +22,6 @@ Deno.test("xtsu", () => {
 Deno.test("xtsu2", () => {
   t.assertEquals(Romaji.encode("ぶっちいん"), "butchiin");
 });
+Deno.test("1chome", () => {
+  t.assertEquals(Romaji.encode("しんよこえ1ちょうめ"), "shin-yokoe-1chome");
+});
