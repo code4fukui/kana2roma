@@ -28,3 +28,9 @@ Deno.test("1chome", () => {
 Deno.test("small i", () => {
   t.assertEquals(Romaji.encode("ちぃちぃ"), "chiichii");
 });
+Deno.test("fa", () => {
+  t.assertEquals(Romaji.encode("みんふぁふぇ"), "minfafe");
+});
+Deno.test("space", () => {
+  t.assertEquals(Romaji.encode("あ い う"), "a i u");
+});
