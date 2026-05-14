@@ -1,35 +1,45 @@
-# Romaji.js in JavaScript
+# kana2roma
 
-[行政基本情報データ連携モデル 住所](https://github.com/code4fukui/BaseRegistry/blob/main/%E8%A1%8C%E6%94%BF%E5%9F%BA%E6%9C%AC%E6%83%85%E5%A0%B1%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%83%A2%E3%83%87%E3%83%AB-%E4%BD%8F%E6%89%80.md)にほぼ準拠するローマ字生成するJavaScriptプログラム(ESモジュール)
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
 
-- 漢字による判定が未実装
+A JavaScript ES module for converting Japanese kana to Romaji. It implements Hepburn romanization with rules tailored for Japanese administrative addresses.
 
-## sample
-
+## Demo
 https://code4fukui.github.io/kana2roma/
 
-## usage
+## Features
+- **Hepburn Romanization:** Converts hiragana to Romaji based on the Hepburn system.
+- **Long Vowels:** Long vowel marks (`ー`) are omitted, and combinations like `ou` are simplified to `o` (e.g., `とうきょう` → `tokyo`).
+- **Geminate Consonants (Sokuon):** Correctly handles the small `っ` by doubling the following consonant (e.g., `ほっかいどう` → `hokkaido`, `ぶっちいん` → `butchiin`).
+- **Syllabic 'n' (Hatsuon):** Inserts a hyphen after `ん` when it's followed by a vowel or a 'y' to prevent ambiguity (e.g., `しんいけちょう` → `shin-ikecho`).
+- **Address Formatting:** Processes numbers as found in addresses (e.g., `1ちょうめ` → ` 1-chome`).
 
-ブラウザのESモジュール(script type内)または、Denoで動く
+## Usage
+Import the ES module in your browser or Deno project.
 
 ```js
 import { Romaji } from "https://code4fukui.github.io/kana2roma/Romaji.js";
 
+// Basic conversion
 console.log(Romaji.encode("とうきょう")); // tokyo
+
+// Advanced conversion with address-specific rules
+console.log(Romaji.encode("ほっかいどう")); // hokkaido
+console.log(Romaji.encode("しんよこえ1ちょうめ")); // shin-yokoe 1-chome
 ```
 
-## logic
+## API
 
-[行政基本情報データ連携モデル 住所](https://github.com/code4fukui/BaseRegistry/blob/main/%E8%A1%8C%E6%94%BF%E5%9F%BA%E6%9C%AC%E6%83%85%E5%A0%B1%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%83%A2%E3%83%87%E3%83%AB-%E4%BD%8F%E6%89%80.md)より
+### `Romaji.encode(kanaString)`
+Converts a hiragana string to a Romaji string.
 
-- [ヘボン式ローマ字](https://github.com/code4fukui/BaseRegistry/blob/main/%E3%83%98%E3%83%9C%E3%83%B3%E5%BC%8F%E3%83%AD%E3%83%BC%E3%83%9E%E5%AD%97.csv)を用いる
-- はねる音「ん」は、「n」と書く
-- はねる音をあらわす「n」と、次に来る母音字又は「y」を切り離す必要がある場合には、「n」の次にハイフンを入れる
-- つまる音は、次の音節の最初の子音字を重ねて表す。ただし、次に「ch」音がくる場合には「c」を重ねず「t」を用いる
-- 長音を表す記号は、省略することを原則とする。 ただし、50 音の「い」段の長音は、「i」を重ねて表し、「えい」は「ei」と書く
-- 表音のローマ字表記が「ou」「oo」「uu」となるときに、対応する元の漢字が一文字の場合にはそれぞれ「o」「o」「u」に短縮するが、二文字に分かれる場合には短縮しない。ただし、短縮する表記が通用している場合には、短縮してもよい
+- `kanaString`: The input string in hiragana.
+- Returns: The converted Romaji string.
 
-## 参考
+*Note: The library expects hiragana input. For katakana support, pre-convert it to hiragana first. The official demo does this using [moji.js](https://github.com/taisukef/moji).*
 
-- [道路標識のローマ字（ヘボン式） の綴り方 | KICTEC](https://www.kictec.co.jp/varieties-road-sign/hebon-romaji.php/)
+## Data Source
+The kana-to-romaji mapping is based on the [ヘボン式ローマ字.csv](https://code4fukui.github.io/BaseRegistry/ヘボン式ローマ字.csv) data from the BaseRegistry project.
 
+## License
+MIT License — see [LICENSE](LICENSE).
